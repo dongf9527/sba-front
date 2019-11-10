@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: sba-front
-          image: registry.cn-shanghai.aliyuncs.com/yuanbing/sba-front:{version}
+          image: dongf9527/sba-front:v4
           ports:
             - name: http-port
               containerPort: 8080
