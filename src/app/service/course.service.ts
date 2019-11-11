@@ -4,6 +4,7 @@ import { NewCourse } from '../models/newCourse';
 import { NewRate } from '../models/newRate';
 import { environment } from '../../environments/environment';
 import { BookCourse } from '../models/bookCourse';
+import { UpdateCourse } from '../models/updateCourse';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ export class CourseService {
 
   addCourse(course: NewCourse) {
     return this.http.post(`${environment.gatewayurl}/course/api/v1/addcourse`, course);
+  }
+
+  updateCourse(course: UpdateCourse) {
+    return this.http.put(`${environment.gatewayurl}/course/api/v1/updatecourse/${course.id}`, course);
   }
 
 
@@ -52,5 +57,32 @@ export class CourseService {
 
   findMentorCompletedCourses(mentorname: string) {
     return this.http.get(`${environment.gatewayurl}/course/api/v1/mentor/listdone?mentorname=${mentorname}`);
+  }
+
+  disableCourses(courseid: number, status: string) {
+
+    const payload = {
+      id: courseid,
+      coursestatus: status
+   };
+    return this.http.put(`${environment.gatewayurl}/course/api/v1/updatestatus/${payload.id}/${payload.coursestatus}`, payload);
+  }
+
+  enableCourses(courseid: number, status: string) {
+
+    const enablepayload = {
+      id: courseid,
+      coursestatus: status
+   };
+    return this.http
+    .put(`${environment.gatewayurl}/course/api/v1/updatestatus/${enablepayload.id}/${enablepayload.coursestatus}`, enablepayload);
+  }
+
+  deleteCourse(courseid: number) {
+    const deletepayload = {
+      id: courseid
+   };
+    return this.http
+    .put(`${environment.gatewayurl}/course/api/v1/delete/${deletepayload.id}`, deletepayload);
   }
 }

@@ -245,10 +245,31 @@
                       </mat-grid-list>
                 </mat-card-content>
                 <mat-card-actions>
-                    <mat-grid-list cols="1" rows="1" rowHeight="40px">
+                    <mat-grid-list cols="3" rows="1" rowHeight="40px">
                         <mat-grid-tile>
+                          <button mat-icon-button (click)="updateCourseDialog(mentoravailablecourse)">
                           <mat-icon>edit</mat-icon>
+                        </button>
                           </mat-grid-tile>
+                          <mat-grid-tile>
+                            <div *ngIf="mentoravailablecourse.status != 'disabled' ;else show_launch">
+                             <button mat-icon-button color="accent" (click)="disable(mentoravailablecourse.id)">
+                            <mat-icon>stop</mat-icon>
+                          </button>
+                          </div>
+                          <ng-template #show_launch>
+                              <button mat-icon-button color="primary" (click)="enable(mentoravailablecourse.id)">
+                                  <mat-icon>launch</mat-icon>
+                                </button>
+
+                          </ng-template>
+
+                            </mat-grid-tile>
+                            <mat-grid-tile>
+                                <button mat-icon-button color="warn" (click)="delete(mentoravailablecourse.id)">
+                                    <mat-icon>delete</mat-icon>
+                                  </button>
+                                </mat-grid-tile>
                       </mat-grid-list>
                 </mat-card-actions>
               </mat-card>
